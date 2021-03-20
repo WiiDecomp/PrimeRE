@@ -1,4 +1,5 @@
 #include <list>
+#include <cstdio>
 int r0;
 int r1;
 int r2;
@@ -7,12 +8,11 @@ int r4;
 int r5;
 int r6;
 int fakeram_800000F;
-int fakeram_
 std::list <int> fakestack[65535];
 void func_8037F0D4(){};
 void func_80003278(){};
 void func_8037DFEC(){};
-void func_80003354(){
+int func_80003354(){
     // DECOMP:
     /* 80003354 00000354  7C 00 00 A6 */	//mfmsr r0
     /* 80003358 00000358  60 00 20 00 */	//ori r0, r0, 0x2000
@@ -22,21 +22,25 @@ void func_80003354(){
     func_8037F0D4();
     // DECOMP:
     /* 8000336C 0000036C  7F E8 03 A6 */	//mtlr r31
-};
-int func_80003294(int arg1){
+    return 0;
+}; // Returns in r0
+int func_80003294(int arg1 /* r0 */){
     return 0;
 };
 int lbl_80003188(){
     return 0;
-};
+}; // Returns in r7
 void lbl_800031A8(){};
+
 int main(){
+    int thingthatweaddnegative1to;
     func_80003278();
-    func_80003354();
+    thingthatweaddnegative1to = func_80003354();
+    printf("Thingy is %d", thingthatweaddnegative1to);
     int buffer_minus8; // Note: This stores the contents of -8 in 8000314C
-    int buffer_4;
-    int buffer_0;
-    //r0 += -1; // Todo, Is this right?
+    int buffer_4; // Same for minus8, but with 4
+    int buffer_0; // Same with 4, but with 0
+    thingthatweaddnegative1to += -1; // Todo, Is this right?
     //  ^^^  
     // Here's an assumption I made.
     // I belive the below func takes r0 as an argument.
@@ -56,16 +60,15 @@ int main(){
     // stwu 6,buffer(4) is stated in the PPC docs
     // This would make the buffer -8 in this case????????????????
     buffer_minus8 = r1;
-    r1 = (*intptr_t)buffer_minus8;
+    r1 = buffer_minus8;
     buffer_4 = r0;
-    r1 = (*intptr_t)buffer_4;
+    r1 = buffer_4;
     buffer_0 = r0;
-    r1 = (*intptr_t)buffer_0
-    func_80003294(-1);
+    r1 = buffer_0;
+    func_80003294(thingthatweaddnegative1to);
     r0 = 0; // This looks wrong.
     r6 += fakeram_800000F;
-    // DECOMP:
-    /* 80003174 00000174  80 C6 00 00 */	//lwz r6, 0(r6)
+    r6 = buffer_0;    /* 80003174 00000174  80 C6 00 00 */	//lwz r6, 0(r6)
     if (r6 != lbl_80003188()){
         // DECOMP:
         /* 80003180 00000180  80 E6 00 0C */	//lwz r7, 0xc(r6)
