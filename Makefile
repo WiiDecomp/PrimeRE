@@ -49,6 +49,8 @@ $(TARGET) $(EXECUTABLE):$(OBJS) | tempdirs
 	$(CXX) -o $(EXECUTABLE) $^ $(CXXFLAGS) $(LIB_FLAGS)
 all:$(EXECUTABLE)
 	@echo Building $(EXECUTABLE)
+build:all
+	@echo
 clean:
 	rm $(EXECUTABLE)
 	rm -rf $(BUILD_TEMP) $(BUILT_PLUGIN_PATH)

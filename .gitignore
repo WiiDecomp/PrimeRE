@@ -6,3 +6,6 @@ plugins # Ignore plugins
 mods # Ignore mods, too
 *.o
 build
+*.old*
+*.exe
+*.old2
