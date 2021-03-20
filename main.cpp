@@ -7,6 +7,7 @@ int r4;
 int r5;
 int r6;
 int fakeram_800000F;
+int fakeram_
 std::list <int> fakestack[65535];
 void func_8037F0D4(){};
 void func_80003278(){};
@@ -32,6 +33,9 @@ void lbl_800031A8(){};
 int main(){
     func_80003278();
     func_80003354();
+    int buffer_minus8; // Note: This stores the contents of -8 in 8000314C
+    int buffer_4;
+    int buffer_0;
     //r0 += -1; // Todo, Is this right?
     //  ^^^  
     // Here's an assumption I made.
@@ -48,6 +52,15 @@ int main(){
     except when the rA field is 0, in which case it specifies a literal 0 instead of 
     r0. li rD, SIMM is really addi rD, 0, SIMM.
     */
+    // The PPC docs for stwu invalidate 8000314C???
+    // stwu 6,buffer(4) is stated in the PPC docs
+    // This would make the buffer -8 in this case????????????????
+    buffer_minus8 = r1;
+    r1 = (*intptr_t)buffer_minus8;
+    buffer_4 = r0;
+    r1 = (*intptr_t)buffer_4;
+    buffer_0 = r0;
+    r1 = (*intptr_t)buffer_0
     func_80003294(-1);
     r0 = 0; // This looks wrong.
     r6 += fakeram_800000F;

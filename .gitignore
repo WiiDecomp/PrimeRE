@@ -2,6 +2,7 @@ main.py
 ldscript.*
 assembly_file.s
 plugins # Ignore plugins
+Makefile
 plugins/*
 mods # Ignore mods, too
 *.o
