@@ -1,4 +1,4 @@
-#include <stdio>
+#include <list>
 int r0;
 int r1;
 int r2;
@@ -7,8 +7,10 @@ int r4;
 int r5;
 int r6;
 int fakeram_800000F;
-std::list stack;
+std::list <int> fakestack[65535];
+void func_8037F0D4(){};
 void func_80003278(){};
+void func_8037DFEC(){};
 void func_80003354(){
     // DECOMP:
     /* 80003354 00000354  7C 00 00 A6 */	//mfmsr r0
@@ -20,12 +22,14 @@ void func_80003354(){
     // DECOMP:
     /* 8000336C 0000036C  7F E8 03 A6 */	//mtlr r31
 };
-void func_8037DFEC(){};
-void func_80003294(){};
-void func_8037F0D4(){};
-void lbl_80003188(){};
+int func_80003294(int arg1){
+    return 0;
+};
+int lbl_80003188(){
+    return 0;
+};
 void lbl_800031A8(){};
-void main(){
+int main(){
     func_80003278();
     func_80003354();
     //r0 += -1; // Todo, Is this right?
@@ -54,4 +58,5 @@ void main(){
         /* 80003180 00000180  80 E6 00 0C */	//lwz r7, 0xc(r6)
         lbl_800031A8();
     }
+    return 0;
 }

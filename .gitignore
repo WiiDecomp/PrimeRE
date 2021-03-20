@@ -1,3 +1,7 @@
 main.py
 ldscript.*
 assembly_file.s
+Makefile # Make sure I don't commit the pc-port makefile to master.
+plugins # Ignore plugins
+mods # Ignore mods, too
+
