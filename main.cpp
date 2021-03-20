@@ -9,8 +9,20 @@ int r6;
 int fakeram_800000F;
 std::list stack;
 void func_80003278(){};
-void func_80003354(){};
+void func_80003354(){
+    // DECOMP:
+    /* 80003354 00000354  7C 00 00 A6 */	//mfmsr r0
+    /* 80003358 00000358  60 00 20 00 */	//ori r0, r0, 0x2000
+    /* 8000335C 0000035C  7C 00 01 24 */	//mtmsr r0
+    /* 80003360 00000360  7F E8 02 A6 */	//mflr r31
+    func_8037DFEC();
+    func_8037F0D4();
+    // DECOMP:
+    /* 8000336C 0000036C  7F E8 03 A6 */	//mtlr r31
+};
+void func_8037DFEC(){};
 void func_80003294(){};
+void func_8037F0D4(){};
 void lbl_80003188(){};
 void lbl_800031A8(){};
 void main(){
