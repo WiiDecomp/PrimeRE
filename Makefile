@@ -1,7 +1,13 @@
 .PHONY: all tempdirs clean
-PLUGIN_PATH = plugins
+
+USE_MODS = yes
+
+# These should be configurable
+PLUGIN_PATH ?= plugins
 BUILT_PLUGIN_PATH = $(PLUGIN_PATH)/built
-PLUGINS = mpmodcore
+PLUGINS ?= 
+ifeq ($(USE_MODS), yes)
+	PLUGINS += mpmodcore
 
 SOURCE_DIR = .
 MAIN = main
@@ -19,8 +25,10 @@ BUILD_TEMP = build
 OBJS = $(BUILD_TEMP)/$(MAIN).o
 OBJS += $(foreach file,$(PLUGINS), $(BUILT_PLUGIN_PATH)/$(file).o)
 
-CXXFLAGS := -O2 -std=gnu++20
+CXXFLAGS := -O2 -std=gnu++20 -fpermissive -Wfatal-errors
 CXXFLAGS += $(INCLUDE_FLAGS)
+ifeq ($(USE_MODS), yes)
+	CXXFLAGS += -D__OPT_PLUGINS_ON__ --allow-multiple-definition
 
 CPP = g++
 C = gcc
@@ -28,11 +36,11 @@ MAKE = make
 LD = ld
 AR = ar
 
-TARGET = MetroidPrime
-VERSION = us
-PLATFORM = Windows
-EXECUTABLE = $(TARGET).$(PLATFORM)
-DEBUG := no
+TARGET ?= MetroidPrime
+VERSION ?= us
+PLATFORM ?= Windows
+EXECUTABLE ?= $(TARGET).$(PLATFORM)
+DEBUG = no
 ifeq ($(PLATFORM), Windows)
 	EXECUTABLE = $(TARGET).$(PLATFORM).exe
 endif
@@ -49,7 +57,7 @@ $(TARGET) $(EXECUTABLE):$(OBJS) | tempdirs
 	$(CXX) -o $(EXECUTABLE) $^ $(CXXFLAGS) $(LIB_FLAGS)
 all:$(EXECUTABLE)
 	@echo Building $(EXECUTABLE)
-build:all
+build:$(EXECUTABLE)
 	@echo
 clean:
 	rm $(EXECUTABLE)
